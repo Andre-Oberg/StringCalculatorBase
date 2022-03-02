@@ -46,11 +46,21 @@ public class StringCalculatorTest {
         assertEquals(37, calc2.add("5 5.22,2a3aa"));
     }
     
-        @Test
+    @Test
     public void testWithNewLine() {
         StringCalculator calc2 = new StringCalculator();
         assertEquals(5, calc2.add("//1:;2\n2"));
     }
     
+    @Test
+    public void testWithNegativeNumber() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(0, calc2.add("11//2-a -2"));
+    }
     
+    @Test
+    public void testWithNegativeSignAtEnd() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(0, calc2.add("11//2-a - 2-"));
+    }
 }

@@ -19,6 +19,14 @@ public class StringCalculator {
         
         for (int i=0; i < string.length(); i++) {
 
+            
+            // Naiv implementation för kontrol av negatigva tal. Detta kommer fungera så länge
+            // - inte är det sista talet i strängen annars leder det till index out of range
+            if (string.charAt(i) == '-' && Character.isDigit(string.charAt(i+1))) {
+                System.out.println("Do i spy a negative number!?");
+                return 0;
+            }
+            
             // Ifall talet skulle vara exempelvis 10, 11 tolv så behöver man lägga till
             // de extra siffrorna i en seperat sträng, sedan när en icke siffra förekommer så
             // plockar man ut talet
