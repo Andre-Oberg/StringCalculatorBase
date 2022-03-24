@@ -29,18 +29,30 @@ public class StringCalculatorTest {
     }
     
     @Test
-    public void testWithOneNumber() {
-        StringCalculator calc2 = new StringCalculator();
-        assertEquals(22, calc2.add("22"));
-    }
-    
-    @Test
     public void testWithTwoNumbers() {
         StringCalculator calc2 = new StringCalculator();
-        assertEquals(4, calc2.add("2 2"));
+        assertEquals(4, calc2.add("2,2"));
     }
     
     @Test
+    public void testWithThreeNumbers() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(9, calc2.add("2,2,5"));
+    }
+    
+    @Test
+    public void testWithNewLine() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(13, calc2.add("1,2,5\n5"));
+    }
+    
+    @Test
+    public void testWithMultipleSeperatorsInARow() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(9, calc2.add("2,,2,5"));
+    }
+    
+    /*@Test
     public void testWithMultipleNumbers() {
         StringCalculator calc2 = new StringCalculator();
         assertEquals(37, calc2.add("5 5.22,2a3aa"));
@@ -62,5 +74,5 @@ public class StringCalculatorTest {
     public void testWithNegativeSignAtEnd() {
         StringCalculator calc2 = new StringCalculator();
         assertEquals(0, calc2.add("11//2-a - 2-"));
-    }
+    }*/
 }

@@ -2,16 +2,65 @@ package ax.ha.it.calculator;
 
 public class StringCalculator {
     
+    int sum = 0;
+    
+    private String seperator = ",|\n";
+    
+    // Sträng som kommer användas för att använda en ny seperator
+    private String customSeperatorIndicator = "//";
+    
+    // Indikator för att kunna läsa new line
+    private String newLineIndicator = "\n";
+    
+    private String customSeperator = "";
+    
+    String[] values;
+    
     public int add(String text) {
         if (text.isEmpty()) {
             return 0;
-        } else { 
-            return sum(text);
         }
+        if (text.startsWith(customSeperatorIndicator)) {
+            setCustomSeperator();
+        } else {
+            values = text.split(seperator);
+        }
+        return sum(values);
+        /*else if (text.startsWith(customSeperator)) { 
+            return sum(text);
+        }*/
+        
     }
     
+    private int sum(String[] numbers) {
+        
+        int sum = 0;
+        /*
+        int[] nums = numbers.split(customSeperator.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+        */
+        for (String currentNumber:numbers) {
+            
+            sum += checkIfNegative(currentNumber);
+        }
+            
+        return sum;
+    }
+    
+    private void setCustomSeperator() {
+    
+    }
+    
+    private int checkIfNegative(String number) {
+        int num = Integer.parseInt(number);
+        
+        if (num < 0) {
+            System.out.println("Negative Number Detected");
+        }
+        return num;
+        
+    }
     // Funktion för att addera alla potentiella tal som finns i strängen
-    private int sum(String string){
+    /*private int sum(String string){
         
         // Sträng som kommer innehålla talen som hittas i input strängen
         String num = "0";
@@ -46,5 +95,5 @@ public class StringCalculator {
         }
        
         return sum;
-    }
+    }*/
 }
