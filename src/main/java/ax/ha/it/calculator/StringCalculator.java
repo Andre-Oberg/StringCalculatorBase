@@ -21,33 +21,29 @@ public class StringCalculator {
             return 0;
         }
         if (text.startsWith(customSeperatorIndicator)) {
-            setCustomSeperator();
+            setCustomSeperator(text);
         } else {
             values = text.split(seperator);
         }
         return sum(values);
-        /*else if (text.startsWith(customSeperator)) { 
-            return sum(text);
-        }*/
         
     }
     
     private int sum(String[] numbers) {
         
         int sum = 0;
-        /*
-        int[] nums = numbers.split(customSeperator.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-        */
+        
         for (String currentNumber:numbers) {
-            
             sum += checkIfNegative(currentNumber);
         }
             
         return sum;
     }
     
-    private void setCustomSeperator() {
-    
+    private void setCustomSeperator(String input) {
+        String[] sep = input.split("\n");
+        String sep2 = sep[0].substring(2);
+        System.out.println("Custom sep: "+sep2);
     }
     
     private int checkIfNegative(String number) {

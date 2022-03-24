@@ -52,6 +52,12 @@ public class StringCalculatorTest {
         assertEquals(9, calc2.add("2,,2,5"));
     }
     
+    @Test
+    public void testTryGettingCustomSeperator() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(0, calc2.add("//|||\n5"));
+    }
+    
     /*@Test
     public void testWithMultipleNumbers() {
         StringCalculator calc2 = new StringCalculator();
