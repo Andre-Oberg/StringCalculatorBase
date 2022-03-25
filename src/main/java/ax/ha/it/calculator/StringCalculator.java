@@ -1,5 +1,7 @@
 package ax.ha.it.calculator;
 
+import java.util.Arrays;
+
 public class StringCalculator {
     
     int sum = 0;
@@ -14,6 +16,8 @@ public class StringCalculator {
     
     private String customSeperator = "";
     
+    private String numbers = "";
+    
     String[] values;
     
     public int add(String text) {
@@ -21,9 +25,15 @@ public class StringCalculator {
             return 0;
         }
         if (text.startsWith(customSeperatorIndicator)) {
-            setCustomSeperator(text);
+            String num = setCustomSeperator(text);
+            //String temp = text.substring(2);
+            //System.out.println("Text is: "+customSeperator);
+            values = num.split(customSeperator);
+            
+            System.out.print("If Values is "+Arrays.toString(values));
         } else {
             values = text.split(seperator);
+            System.out.print("Values is "+Arrays.toString(values));
         }
         return sum(values);
         
@@ -33,24 +43,41 @@ public class StringCalculator {
         
         int sum = 0;
         
+        System.out.println("Before For Loop");
         for (String currentNumber:numbers) {
             sum += checkIfNegative(currentNumber);
         }
-            
+         System.out.println("After For Loop");   
         return sum;
     }
     
-    private void setCustomSeperator(String input) {
-        String[] sep = input.split("\n");
-        String sep2 = sep[0].substring(2);
-        System.out.println("Custom sep: "+sep2);
+    private String setCustomSeperator(String input) {
+        //Delar upp strängen i två delar. En Som innehåller delimitern och en som skall innehålla talen
+        String[] sep = input.split("\n", 2);
+        
+        
+        //Delimitern bör vara efter // vilket leder att jag tar en substring efter två chars
+        this.customSeperator = sep[0].substring(2);
+        //this.customSeperator = sep[0].substring(2);
+        //System.out.println("Set Custom 1: "+this.customSeperator);
+        
+        if (this.customSeperator.equals("|")) {
+            
+            this.customSeperator = "\\|";
+            System.out.println("Set Custom IF: "+this.customSeperator);
+        }
+        this.customSeperator = this.customSeperator.concat("|\n");
+        System.out.println("Set Custom 2: "+this.customSeperator);
+        
+        //Använder den andra delen av inputen som skall innehålla talen som den nya strängen som skall läsas av, om jag inte gör det så får man ett , i början av strängen och får programmet att crasha
+        return sep[1];
     }
     
     private int checkIfNegative(String number) {
         int num = Integer.parseInt(number);
         
         if (num < 0) {
-            System.out.println("Negative Number Detected");
+            throw new IllegalArgumentException("Negative numbers are not allowed");
         }
         return num;
         
