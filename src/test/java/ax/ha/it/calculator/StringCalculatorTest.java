@@ -86,6 +86,4 @@ public class StringCalculatorTest {
         //Integer.parseInt("1a");*/
     }
     
-    }
-    
 }
