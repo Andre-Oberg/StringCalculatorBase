@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class StringCalculatorTest {
@@ -16,7 +17,7 @@ public class StringCalculatorTest {
         calc = new StringCalculator();
     }*/
     
-    @Test
+    /*@Test
     public void testEmptyString() {
         StringCalculator calc2 = new StringCalculator();
         assertEquals(0, calc2.add(""));
@@ -83,7 +84,44 @@ public class StringCalculatorTest {
         //assertThrows(0, calc2.add("2,2,-2"));
         
         Exception exception = assertThrows(Exception.class, () -> calc2.add("2,2,-2"));
-        //Integer.parseInt("1a");*/
+        //Integer.parseInt("1a");
+    }
+    
+    @Test
+    public void testWithValueAt1000() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(1006, calc2.add("1000:2:4"));
+    }
+    
+    @Test
+    public void testWithValueOver1000() {
+        StringCalculator calc2 = new StringCalculator();
+        assertEquals(1006, calc2.add("1000:2:4"));
+    }*/
+    
+    public void testAddOnEmptyStringReturnsZero() {
+        //StringCalculator calc = new StringCalculator(new LoggerStub()).add("");
+        assertEquals(0, new StringCalculator(new LoggerStub()).add(""));
+    }
+    
+    public void testAddOnValue1000() {
+        //StringCalculator calc = new StringCalculator(new LoggerStub()).add("");
+        assertEquals(1000, new StringCalculator(new LoggerStub()).add("1000"));
+    }
+    
+    public void testLoggerIsCalledOnAdd() {
+        Logger mockLogger = mock(Logger.class);
+        //mockLogger.log(10);
+        //verify(mockLogger).log(10);
+        new StringCalculator(mockLogger).add("1000");
+        verify(mockLogger, times(1)).log(1000);
+        
+    }
+    
+    // Skulle här börja tänka att det bör vara bäst att först gå igenom strängen för negativa tal sedan summera dem.
+    public void testLoggerIsCalledOnAddAndThereIsANegativeValue() {
+        Logger mockLogger = mock(Logger.class);
+        Exception exception = assertThrows(Exception.class, () -> new StringCalculator(mockLogger).add("1000,-2"));
     }
     
 }
