@@ -1,5 +1,10 @@
 package ax.ha.it.calculator;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import static java.lang.System.out;
+import jdk.tools.jaotc.Main;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,7 +104,7 @@ public class StringCalculatorTest {
         assertEquals(1006, calc2.add("1000:2:4"));
     }*/
     
-    public void testAddOnEmptyStringReturnsZero() {
+    /*public void testAddOnEmptyStringReturnsZero() {
         //StringCalculator calc = new StringCalculator(new LoggerStub()).add("");
         assertEquals(0, new StringCalculator(new LoggerStub()).add(""));
     }
@@ -116,12 +121,35 @@ public class StringCalculatorTest {
         new StringCalculator(mockLogger).add("1000");
         verify(mockLogger, times(1)).log(1000);
         
-    }
+    }*/
     
     // Skulle här börja tänka att det bör vara bäst att först gå igenom strängen för negativa tal sedan summera dem.
     public void testLoggerIsCalledOnAddAndThereIsANegativeValue() {
         Logger mockLogger = mock(Logger.class);
         Exception exception = assertThrows(Exception.class, () -> new StringCalculator(mockLogger).add("1000,-2"));
+    }
+    
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+    
+    @Test
+    public void testWelcomeMessage() {
+        /*String[] args = null;
+        Calculator.main(args);
+        System.out.println("Test");
+        assertEquals("Welcome to the String Calculator", out.toString());*/
+        print("Hello Baeldung Readers!!");
+
+        assertEquals("Hello Baeldung Readers!!", outputStreamCaptor.toString()
+        .trim());
+        //assertEquals(1000, new StringCalculator(new LoggerStub()).add("1000"));
+        //System.out.println("Welcome to the String Calculator");
+        //assert
     }
     
 }
