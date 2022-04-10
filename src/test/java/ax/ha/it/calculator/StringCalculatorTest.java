@@ -57,26 +57,33 @@ public class StringCalculatorTest {
         StringCalculator calc2 = new StringCalculator();
         assertEquals(9, calc2.add("2,2,5"));
     }
-    
+    */
     @Test
     public void testWithSpecialDelimiter() {
-        StringCalculator calc2 = new StringCalculator();
+        StringCalculator calc2 = new StringCalculator(new LoggerStub());
         // Märkte att om delimitern är | så måste det starta med \\| har dock ej lyckats fixa ifall det förekommer flera gånger i rad eller om det förekommer exempelvis likt detta :|:
         assertEquals(16, calc2.add("//|\n5|5|5|1"));
     }
     
     @Test
     public void testWithCustomSepertator() {
-        StringCalculator calc2 = new StringCalculator();
+        StringCalculator calc2 = new StringCalculator(new LoggerStub());
         assertEquals(11, calc2.add("//a\n5a4a2"));
     }
     
     @Test
     public void testWithCustomSepertatorAndNewLine() {
-        StringCalculator calc2 = new StringCalculator();
+        StringCalculator calc2 = new StringCalculator(new LoggerStub());
         assertEquals(18, calc2.add("//a\n5a4a2\n2\n5"));
     }
     
+    @Test
+    public void testWithSpecialDelimiter2() {
+        StringCalculator calc2 = new StringCalculator(new LoggerStub());
+        // Märkte att om delimitern är | så måste det starta med \\| har dock ej lyckats fixa ifall det förekommer flera gånger i rad eller om det förekommer exempelvis likt detta :|:
+        assertEquals(16, calc2.add("//[aa][sss]\n1aa5sss5aa5"));
+    }
+    /*
     @Test
     public void testWithMultipleNumbers() {
         StringCalculator calc2 = new StringCalculator();
@@ -128,28 +135,4 @@ public class StringCalculatorTest {
         Logger mockLogger = mock(Logger.class);
         Exception exception = assertThrows(Exception.class, () -> new StringCalculator(mockLogger).add("1000,-2"));
     }
-    
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-    
-    @Test
-    public void testWelcomeMessage() {
-        /*String[] args = null;
-        Calculator.main(args);
-        System.out.println("Test");
-        assertEquals("Welcome to the String Calculator", out.toString());*/
-        print("Hello Baeldung Readers!!");
-
-        assertEquals("Hello Baeldung Readers!!", outputStreamCaptor.toString()
-        .trim());
-        //assertEquals(1000, new StringCalculator(new LoggerStub()).add("1000"));
-        //System.out.println("Welcome to the String Calculator");
-        //assert
-    }
-    
 }
