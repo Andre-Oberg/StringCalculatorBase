@@ -34,10 +34,14 @@ public class Main {
             input = scanner.nextLine();
             //Kontroll för att verifiera att strängen startar med scalc samt att den är längre än 7 (för att veta att det inte bara står scalc ')
             if (input.indexOf("scalc", 0) == 0 && input.length() > 7) {
-                // Snabb sätt att få ut värdena för add. Då "scalc '" är 7 chars lång samt vet att det skall sluta med ' 
-                // så behöver man bara använda substring(7, input.length()-1) för att få alla värden
-                numbers = input.substring(7, input.length()-1);
-                System.out.println("The result is "+calc.add(numbers));
+                try {
+                    // Snabb sätt att få ut värdena för add. Då "scalc '" är 7 chars lång samt vet att det skall sluta med ' 
+                    // så behöver man bara använda substring(7, input.length()-1) för att få alla värden
+                    numbers = input.substring(7, input.length()-1);
+                    System.out.println("The result is "+calc.add(numbers));
+                } catch (Exception error) {
+                    System.err.println(error);
+                }
             } else if (input.length() <= 0) {
                 System.out.println("");
                 break;
